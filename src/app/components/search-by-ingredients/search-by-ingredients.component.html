@@ -1,1 +1,28 @@
-<p>search-by-ingredients works!</p>
+<div class="search-by-ingredients-container">
+    <h2>Search for Cocktails by Ingredients</h2>
+
+    <!-- New form array section for ingredient inputs -->
+    <form [formGroup]="form">
+        <div formArrayName="ingredients">
+            <div *ngFor="let ingredient of ingredients.controls; let i = index" class="mb-2">
+                <input type="text" [formControlName]="i" placeholder="Enter ingredient" class="form-control">
+            </div>
+        </div>
+    </form>
+
+    <button (click)="addIngredientField()" [disabled]="ingredients.length >= 5" class="btn btn-secondary">Add Ingredient</button>
+    <button (click)="searchCocktails()" [disabled]="isSearchDisabled()" class="btn btn-primary">Search Cocktails</button>
+    
+    <!-- Results and no-results sections remain as they were -->
+    <div *ngIf="results.length > 0" class="results-container">
+        <h3>Search Results</h3>
+        <div *ngFor="let cocktail of results" class="result-item">
+            <h4>{{ cocktail.strDrink }}</h4>
+            <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}" class="cocktail-thumbnail">
+            <p>{{ cocktail.strInstructions }}</p>
+        </div>
+    </div>
+    <div *ngIf="results.length === 0" class="no-results">
+        <p>No cocktails found with these ingredients.</p>
+    </div>
+</div>

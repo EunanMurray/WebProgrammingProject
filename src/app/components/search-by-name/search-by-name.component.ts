@@ -7,7 +7,7 @@ import { Cocktail } from '../../cocktail';
 @Component({
   selector: 'app-search-by-name',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Include CommonModule here
+  imports: [FormsModule, CommonModule],
   templateUrl: './search-by-name.component.html',
   styleUrls: ['./search-by-name.component.css']
 })

@@ -16,10 +16,10 @@ export class CocktailService {
     return this.http.get<{drinks: Cocktail[]}>(`${this.apiUrl}/search.php?s=${name}`);
   }
 
-  searchByIngredients(ingredients: string): Observable<{drinks: Cocktail[]}> {
-    return this.http.get<{drinks: Cocktail[]}>(`${this.apiUrl}/filter.php?i=${ingredients}`);
+  searchByIngredients(ingredients: string): Observable<{ drinks: Cocktail[] }> {
+    return this.http.get<{ drinks: Cocktail[] }>(`${this.apiUrl}/filter.php?i=${ingredients}`);
   }
-
+  
   getDetails(id: string): Observable<{drinks: Cocktail[]}> {
     return this.http.get<{drinks: Cocktail[]}>(`${this.apiUrl}/lookup.php?i=${id}`);
   }
