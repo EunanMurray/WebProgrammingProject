@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { CocktailService } from '../../services/cocktail.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormArray } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-
-
+import { Cocktail } from '../../cocktail';
+import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-by-ingredients',
@@ -14,18 +13,38 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './search-by-ingredients.component.html',
   styleUrls: ['./search-by-ingredients.component.css']
 })
-
 export class SearchByIngredientsComponent {
   form = this.fb.group({
     ingredients: this.fb.array([])
   });
 
-  results: any[] = [];
+  results: Cocktail[] = [];
+  selectedCocktail: Cocktail | null = null;
 
   constructor(private fb: FormBuilder, private cocktailService: CocktailService) {}
 
   get ingredients(): FormArray {
     return this.form.get('ingredients') as FormArray;
+  }
+
+  searchCocktails(): void {
+    const ingredientList = this.ingredients.value.filter(Boolean).join(',');
+    this.cocktailService.searchByIngredients(ingredientList).pipe(
+      switchMap(initialResults => {
+        const detailObservables = initialResults.drinks.map(drink => {
+          return this.cocktailService.getDetails(drink.idDrink);
+        });
+        return forkJoin(detailObservables); 
+      })
+    ).subscribe({
+      next: (detailedResults) => {
+        this.results = detailedResults.map(res => res.drinks[0]); 
+      },
+      error: (error) => {
+        console.error('Search failed:', error);
+        this.results = [];
+      }
+    });
   }
 
   addIngredientField(): void {
@@ -34,15 +53,7 @@ export class SearchByIngredientsComponent {
     }
   }
 
-  searchCocktails(): void {
-    const query = this.ingredients.value.filter(Boolean).join(',');
-    this.cocktailService.searchByIngredients(query).subscribe({
-      next: (data) => { this.results = data.drinks; },
-      error: (error) => { console.error('Search failed:', error); }
-    });
-  }
-
   isSearchDisabled(): boolean {
-    return this.ingredients.value.every(ing => !ing.trim());
+    return this.ingredients.value.every((ing: string) => !ing.trim());
   }
 }

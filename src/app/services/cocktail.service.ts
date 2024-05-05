@@ -23,4 +23,6 @@ export class CocktailService {
   getDetails(id: string): Observable<{drinks: Cocktail[]}> {
     return this.http.get<{drinks: Cocktail[]}>(`${this.apiUrl}/lookup.php?i=${id}`);
   }
+
+  
 }
