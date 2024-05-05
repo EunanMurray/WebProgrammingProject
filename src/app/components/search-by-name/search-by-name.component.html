@@ -1,0 +1,18 @@
+<div id="nameSearchSection">
+  <input type="text" [(ngModel)]="name" placeholder="Cocktail name">
+  <button (click)="searchByName()">Search by Name</button>
+</div>
+
+<div *ngIf="cocktails && cocktails.length > 0; else noResults">
+  <div *ngFor="let cocktail of cocktails">
+    <div class="cocktail-info">
+      <h1>{{ cocktail.strDrink }}</h1>
+      <img [src]="cocktail.strDrinkThumb" alt="{{ cocktail.strDrink }}">
+      <p><strong>Glass:</strong> {{ cocktail.strGlass }}</p>
+      <p><strong>Instructions:</strong> {{ cocktail.strInstructions }}</p>
+    </div>
+  </div>
+</div>
+<ng-template #noResults>
+  <p>No cocktails found. Please try another name.</p>
+</ng-template>
