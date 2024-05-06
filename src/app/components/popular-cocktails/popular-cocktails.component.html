@@ -5,3 +5,13 @@
     recipes by names.
   </p>
 </div>
+
+<div class="cocktail-list">
+  <div *ngFor="let cocktail of cocktails" class="cocktail-item">
+    <div class="cocktail-thumbnail" [style.backgroundImage]="'url(' + cocktail.strDrinkThumb + ')'">
+      <div class="cocktail-info">
+        <h3>{{ cocktail.strDrink }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

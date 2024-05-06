@@ -1,0 +1,39 @@
+.cocktail-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .cocktail-item {
+    width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .cocktail-thumbnail {
+    background-size: cover;
+    height: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .cocktail-thumbnail:hover {
+    transform: scale(1.05);
+  }
+  
+  .cocktail-info {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .cocktail-thumbnail:hover .cocktail-info {
+    opacity: 1;
+  }
+  

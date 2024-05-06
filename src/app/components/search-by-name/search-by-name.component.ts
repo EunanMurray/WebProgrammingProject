@@ -13,17 +13,17 @@ import { Cocktail } from '../../cocktail';
 })
 export class SearchByNameComponent {
   name: string = '';
-  cocktails: Cocktail[] | null = null;
+  cocktails: Cocktail[] = []; 
 
   constructor(private cocktailService: CocktailService) {}
 
   searchByName(): void {
     if (this.name) {
       this.cocktailService.searchByName(this.name).subscribe({
-        next: (data) => this.cocktails = data.drinks,
+        next: (data) => this.cocktails = data.drinks || [],  
         error: (err) => {
           console.error('Failed to search cocktails by name:', err);
-          this.cocktails = null;
+          this.cocktails = []; 
         }
       });
     }
