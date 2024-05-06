@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CocktailService } from '../../services/cocktail.service';
 import { Cocktail } from '../../cocktail';  
+import { TextToSpeechService } from '../../services/responsive-voice.service';
 
 @Component({
   selector: 'app-popular-cocktails',
@@ -25,3 +26,4 @@ export class PopularCocktailsComponent implements OnInit {
     });
   }
 }
+

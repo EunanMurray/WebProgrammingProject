@@ -10,6 +10,8 @@ export class CocktailService {
 
   private apiUrl = 'https://www.thecocktaildb.com/api/json/v2/9973533';
 
+  private MongoURL = "http://46.137.17.192:5050/api/cocktails";
+
   constructor(private http: HttpClient) { }
 
   searchByName(name: string): Observable<{drinks: Cocktail[]}> {
@@ -28,5 +30,11 @@ export class CocktailService {
     return this.http.get<{ drinks: Cocktail[] }>(`${this.apiUrl}/popular.php`);
   }
 
+  addCocktail(cocktail: Cocktail): Observable<Cocktail> {
+    return this.http.post<Cocktail>(this.MongoURL, cocktail);
+  }
+
   
 }
+
+

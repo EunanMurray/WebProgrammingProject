@@ -13,6 +13,13 @@
           placeholder="Enter ingredient"
           class="form-control"
         />
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          (click)="removeIngredientField(i)"
+        >
+          Remove
+        </button>
       </div>
     </div>
   </form>
@@ -52,13 +59,16 @@
               <p class="card-text">
                 <strong>Instructions:</strong> {{ cocktail.strInstructions }}
               </p>
+              <button
+                class="btn btn-success"
+                (click)="addCocktailToDb(cocktail)"
+              >
+                Add to Database
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div *ngIf="results.length === 0" class="no-results">
-    <p>No cocktails found with these ingredients.</p>
   </div>
 </div>

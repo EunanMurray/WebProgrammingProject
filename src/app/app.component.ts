@@ -20,17 +20,5 @@ export class AppComponent {
   cocktails: Cocktail[] = [];
   errorMessage: any;
 
-  constructor(private cocktailService: CocktailService) {}
-
-  searchByName(name: string): void {
-    this.cocktailService.searchByName(name).subscribe({
-      next: (data) => {
-        this.cocktails = data.drinks;
-      },
-      error: (error) => {
-        console.error('Failed to search cocktails by name:', error);
-        this.errorMessage = error;
-      }
-    });
-  }
 }
+
